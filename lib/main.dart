@@ -20,9 +20,6 @@ class MyApp extends StatelessWidget {
           create: (_) => MovieViewModel(),
         ),
         ChangeNotifierProvider(
-          create: (_) => MovieDetailViewModel(),
-        ),
-        ChangeNotifierProvider(
           create: (_) => MovieSearchViewModel(),
         ),
       ],

@@ -27,7 +27,6 @@ class _MovieScreenState extends State<MovieScreen> {
   Widget build(BuildContext context) {
     final viewModel = context.watch<MovieViewModel>();
     final searchviewModel = context.watch<MovieSearchViewModel>();
-    final detailViewModel = context.watch<MovieDetailViewModel>();
     return Scaffold(
       appBar: AppBar(
         actions: !_searchBoolean
@@ -81,8 +80,8 @@ class _MovieScreenState extends State<MovieScreen> {
                   focusedBorder: const UnderlineInputBorder(
                       //Borders when a TextField is in focus
                       borderSide: BorderSide(color: Colors.white)),
-                  hintText:
-                      '제목을 입력하세요', //Text that is displayed when nothing is entered.
+                  hintText: '제목을 입력하세요',
+                  //Text that is displayed when nothing is entered.
                   hintStyle: const TextStyle(
                     //Style of hintText
                     color: Colors.white60,
@@ -107,12 +106,18 @@ class _MovieScreenState extends State<MovieScreen> {
                     itemBuilder: (BuildContext ctx, index) {
                       return GestureDetector(
                         onTap: () {
-                          detailViewModel.getDetail(
-                              viewModel.movieList[index].id.toString());
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => const MovieDetailScreen(),
+                                builder: (context) => ChangeNotifierProvider(
+                                  create: (_) {
+                                    final movieDetailViewModel = MovieDetailViewModel();
+                                    movieDetailViewModel.getDetail(
+                                        viewModel.movieList[index].id.toString());
+                                    return movieDetailViewModel;
+                                  },
+                                  child: const MovieDetailScreen(),
+                                ),
                               ));
                         },
                         child: Column(
