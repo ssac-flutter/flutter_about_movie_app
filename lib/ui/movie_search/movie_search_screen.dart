@@ -99,8 +99,6 @@ class _MovieSearchScreenState extends State<MovieSearchScreen> {
                     itemBuilder: (BuildContext ctx, index) {
                       return GestureDetector(
                         onTap: () {
-                          detailViewModel.getDetail(
-                              searchviewModel.movieList[index].id.toString());
                           Navigator.push(
                               context,
                               MaterialPageRoute(

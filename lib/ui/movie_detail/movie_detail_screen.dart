@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_about_movie_app/ui/movie_detail/movie_detail_view_model.dart';
-import 'package:flutter_about_movie_app/ui/movie/movie_view_model.dart';
 import 'package:provider/provider.dart';
 
 class MovieDetailScreen extends StatelessWidget {
@@ -17,14 +16,17 @@ class MovieDetailScreen extends StatelessWidget {
           ? const CircularProgressIndicator()
           : Column(
               children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(20),
-                  child: Image.network(
-                    viewModel.getPosterUrl(viewModel.movie),
-                    fit: BoxFit.cover,
+                Hero(
+                  tag: viewModel.movie.id.toString(),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(20),
+                    child: Image.network(
+                      viewModel.movie.posterPath!,
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
-                Text(viewModel.movie.title!),
+                Text(viewModel.movie.title),
               ],
             ),
     );

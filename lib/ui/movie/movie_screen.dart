@@ -106,27 +106,27 @@ class _MovieScreenState extends State<MovieScreen> {
                     itemBuilder: (BuildContext ctx, index) {
                       return GestureDetector(
                         onTap: () {
+                          final movie = viewModel.movieList[index];
+
                           Navigator.push(
                               context,
                               MaterialPageRoute(
                                 builder: (context) => ChangeNotifierProvider(
-                                  create: (_) {
-                                    final movieDetailViewModel = MovieDetailViewModel();
-                                    movieDetailViewModel.getDetail(
-                                        viewModel.movieList[index].id.toString());
-                                    return movieDetailViewModel;
-                                  },
+                                  create: (_) => MovieDetailViewModel(movie),
                                   child: const MovieDetailScreen(),
                                 ),
                               ));
                         },
                         child: Column(
                           children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(20),
-                              child: Image.network(
-                                viewModel.movieList[index].posterPath!,
-                                fit: BoxFit.cover,
+                            Hero(
+                              tag: viewModel.movieList[index].id.toString(),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(20),
+                                child: Image.network(
+                                  viewModel.movieList[index].posterPath!,
+                                  fit: BoxFit.cover,
+                                ),
                               ),
                             ),
                             Text(viewModel.movieList[index].title),
